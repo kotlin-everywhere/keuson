@@ -40,6 +40,14 @@ internal val long: Decoder<Long> = {
     }
 }
 
+val float: Decoder<Float> = {
+    if (it.isJsonPrimitive && it.asJsonPrimitive.isNumber && !"$it".isInt && "$it".isFloat) {
+        Ok(it.asFloat)
+    } else {
+        Err("Expecting a Float but instead got: $it")
+    }
+}
+
 private val String.isInt: Boolean
     get() {
         try {
@@ -54,6 +62,16 @@ private val String.isLong: Boolean
     get() {
         try {
             java.lang.Long.parseLong(this)
+            return true
+        } catch (e: NumberFormatException) {
+            return false
+        }
+    }
+
+private val String.isFloat: Boolean
+    get() {
+        try {
+            java.lang.Float.parseFloat(this)
             return true
         } catch (e: NumberFormatException) {
             return false
