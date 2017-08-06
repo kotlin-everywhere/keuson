@@ -40,7 +40,7 @@ internal val long: Decoder<Long> = {
     }
 }
 
-val float: Decoder<Float> = {
+internal val float: Decoder<Float> = {
     if (it.isJsonPrimitive && it.asJsonPrimitive.isNumber && !"$it".isInt && "$it".isFloat) {
         Ok(it.asFloat)
     } else {
