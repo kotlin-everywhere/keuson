@@ -9,6 +9,7 @@ import com.minek.kotline.everywehre.keuson.decode.Decoders.int
 import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import com.minek.kotline.everywehre.keuson.decode.decodeString
+import com.minek.kotline.everywehre.keuson.decode.map
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -78,5 +79,27 @@ class TestDecode {
         assertEquals(err("Expecting an object with a field named `y` but instead got: {\"x\":4}"), decodeString(field("y", int), "{ \"x\": 4 }"))
 
         assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
+    }
+
+    @Test
+    fun map1() {
+        assertEquals(ok("life"), decodeString(map(int) { if (it == 42) "life" else "no life" }, "42"))
+        assertEquals(ok("no life"), decodeString(map(int) { if (it == 42) "life" else "no life" }, "41"))
+    }
+
+    @Test
+    fun map2() {
+        data class Point(val x: Int, val y: Int)
+
+        val decoder = map(field("x", int), field("y", int), ::Point)
+        assertEquals(ok(Point(x = 3, y = 4)), decodeString(decoder, """{ "x": 3, "y": 4 }"""))
+    }
+
+    @Test
+    fun map3() {
+        data class Point(val x: Int, val y: Int, val z: Int)
+
+        val decoder = map(field("x", int), field("y", int), field("z", int), ::Point)
+        assertEquals(ok(Point(x = 3, y = 4, z = 5)), decodeString(decoder, """{ "x": 3, "y": 4, "z": 5 }"""))
     }
 }
