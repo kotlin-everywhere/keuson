@@ -51,3 +51,7 @@ private fun isInt(i: Number): Boolean {
     @Suppress("UnsafeCastFromDynamic")
     return f != null && js("(f | 0) === f")
 }
+
+internal fun isNull(o: Any?): Boolean {
+    return o == null
+}

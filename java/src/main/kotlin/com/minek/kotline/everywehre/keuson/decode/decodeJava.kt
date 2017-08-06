@@ -82,3 +82,7 @@ private val String.isFloat: Boolean
 internal fun parse(jsonString: String): JsonElement {
     return JsonParser().parse(jsonString)
 }
+
+internal fun isNull(it: JsonElement): Boolean {
+    return it.isJsonNull
+}

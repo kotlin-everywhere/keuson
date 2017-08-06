@@ -7,6 +7,7 @@ import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import com.minek.kotline.everywehre.keuson.decode.Decoders.int
 import com.minek.kotline.everywehre.keuson.decode.Decoders.long
 import com.minek.kotline.everywehre.keuson.decode.Decoders.float
+import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotline.everywehre.keuson.decode.decodeString
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -60,5 +61,11 @@ class TestDecode {
         assertEquals(ok(3.14f), decodeString(float, "3.14"))
         assertEquals(err("Expecting a Float but instead got: \"hello\""), decodeString(float, "\"hello\""))
         assertEquals(err("Expecting a Float but instead got: {\"hello\":42}"), decodeString(float, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testNullable() {
+        assertEquals(ok(null), decodeString(nullable(int), "null"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(int, "true"))
     }
 }

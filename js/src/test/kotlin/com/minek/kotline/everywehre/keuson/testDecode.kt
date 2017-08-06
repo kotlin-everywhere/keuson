@@ -1,8 +1,11 @@
 package com.minek.kotline.everywehre.keuson
 
+import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
 import com.minek.kotline.everywehre.keuson.decode.Decoders
+import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
+import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import com.minek.kotline.everywehre.keuson.decode.decodeString
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -10,10 +13,10 @@ import kotlin.test.assertEquals
 class TestDecode {
     @Test
     fun testString() {
-        assertEquals(err("Expecting a String but instead got: null"), decodeString(Decoders.string, "null"))
-        assertEquals(err("Expecting a String but instead got: true"), decodeString(Decoders.string, "true"))
-        assertEquals(err("Expecting a String but instead got: 42"), decodeString(Decoders.string, "42"))
-        assertEquals(err("Expecting a String but instead got: 3.14"), decodeString(Decoders.string, "3.14"))
+        assertEquals(err("Expecting a String but instead got: null"), decodeString(string, "null"))
+        assertEquals(err("Expecting a String but instead got: true"), decodeString(string, "true"))
+        assertEquals(err("Expecting a String but instead got: 42"), decodeString(string, "42"))
+        assertEquals(err("Expecting a String but instead got: 3.14"), decodeString(string, "3.14"))
         assertEquals(ok("hello"), decodeString(Decoders.string, "\"hello\""))
         assertEquals(err("Expecting a String but instead got: {\"hello\":42}"), decodeString(Decoders.string, "{ \"hello\": 42 }"))
     }
@@ -56,5 +59,11 @@ class TestDecode {
         assertEquals(ok(3.14f), decodeString(Decoders.float, "3.14"))
         assertEquals(err("Expecting a Float but instead got: \"hello\""), decodeString(Decoders.float, "\"hello\""))
         assertEquals(err("Expecting a Float but instead got: {\"hello\":42}"), decodeString(Decoders.float, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testNullable() {
+        assertEquals(Ok<String, Int?>(null), decodeString(nullable(Decoders.int), "null"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(Decoders.int, "true"))
     }
 }

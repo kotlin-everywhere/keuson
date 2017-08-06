@@ -43,7 +43,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile 'com.github.kotlin-everywhere.kelibs-result:java:6a018e1938dd4ab2af1a9f97185601f0c3cc1ce6'
+    compile 'com.github.kotlin-everywhere.kelibs-result:java:3622ddb16697373c8f47d29fe8efa190235913d1'
     compile 'com.google.code.gson:gson:2.8.1'
     testCompile 'junit:junit:4.12'
 }
