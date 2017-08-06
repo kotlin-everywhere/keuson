@@ -25,6 +25,11 @@ internal val int: Decoder<Int> = {
     if (i != null && isInt(i)) Ok(i) else Err("Expecting a Int but instead got: ${it.toJson()}")
 }
 
+internal val long: Decoder<Long> = {
+    val i = it as? Int
+    if (i != null && isInt(i)) Ok(i.toLong()) else Err("Expecting a Long but instead got: ${it.toJson()}")
+}
+
 internal fun parse(jsonString: String): Any? {
     return JSON.parse(jsonString)
 }

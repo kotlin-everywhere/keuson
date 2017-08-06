@@ -5,6 +5,7 @@ import com.minek.kotlin.everywhere.kelibs.result.ok
 import com.minek.kotline.everywehre.keuson.decode.Decoders.boolean
 import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import com.minek.kotline.everywehre.keuson.decode.Decoders.int
+import com.minek.kotline.everywehre.keuson.decode.Decoders.long
 import com.minek.kotline.everywehre.keuson.decode.decodeString
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -38,5 +39,15 @@ class TestDecode {
         assertEquals(err("Expecting a Int but instead got: 3.14"), decodeString(int, "3.14"))
         assertEquals(err("Expecting a Int but instead got: \"hello\""), decodeString(int, "\"hello\""))
         assertEquals(err("Expecting a Int but instead got: {\"hello\":42}"), decodeString(int, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testLong() {
+        assertEquals(err("Expecting a Long but instead got: null"), decodeString(long, "null"))
+        assertEquals(err("Expecting a Long but instead got: true"), decodeString(long, "true"))
+        assertEquals(ok(42L), decodeString(long, "42"))
+        assertEquals(err("Expecting a Long but instead got: 3.14"), decodeString(long, "3.14"))
+        assertEquals(err("Expecting a Long but instead got: \"hello\""), decodeString(long, "\"hello\""))
+        assertEquals(err("Expecting a Long but instead got: {\"hello\":42}"), decodeString(long, "{ \"hello\": 42 }"))
     }
 }

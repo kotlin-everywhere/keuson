@@ -37,4 +37,14 @@ class TestDecode {
         assertEquals(err("Expecting a Int but instead got: \"hello\""), decodeString(Decoders.int, "\"hello\""))
         assertEquals(err("Expecting a Int but instead got: {\"hello\":42}"), decodeString(Decoders.int, "{ \"hello\": 42 }"))
     }
+
+    @Test
+    fun testLong() {
+        assertEquals(err("Expecting a Long but instead got: null"), decodeString(Decoders.long, "null"))
+        assertEquals(err("Expecting a Long but instead got: true"), decodeString(Decoders.long, "true"))
+        assertEquals(ok(42L), decodeString(Decoders.long, "42"))
+        assertEquals(err("Expecting a Long but instead got: 3.14"), decodeString(Decoders.long, "3.14"))
+        assertEquals(err("Expecting a Long but instead got: \"hello\""), decodeString(Decoders.long, "\"hello\""))
+        assertEquals(err("Expecting a Long but instead got: {\"hello\":42}"), decodeString(Decoders.long, "{ \"hello\": 42 }"))
+    }
 }
