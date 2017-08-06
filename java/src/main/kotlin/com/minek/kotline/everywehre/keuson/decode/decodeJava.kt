@@ -48,6 +48,21 @@ internal val float: Decoder<Float> = {
     }
 }
 
+internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
+    return {
+        if (it.isJsonObject) {
+            val obj = it.asJsonObject
+            if (obj.has(name)) {
+                decoder(it.asJsonObject[name])
+            } else {
+                Err("Expecting an object with a field named `$name` but instead got: $it")
+            }
+        } else {
+            Err("Expecting an object but instead got: $it")
+        }
+    }
+}
+
 private val String.isInt: Boolean
     get() {
         try {

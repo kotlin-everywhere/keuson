@@ -35,6 +35,22 @@ internal val float: Decoder<Float> = {
     if (i != null && !isInt(i)) Ok(i) else Err("Expecting a Float but instead got: ${it.toJson()}")
 }
 
+internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
+    return {
+        val isObject = js("it === Object(it)") as Boolean
+        if (isObject) {
+            val i = it.asDynamic()[name]
+            if (i !== undefined) {
+                decoder(i as T)
+            } else {
+                Err("Expecting an object with a field named `$name` but instead got: ${it.toJson()}")
+            }
+        } else {
+            Err("Expecting an object but instead got: ${it.toJson()}")
+        }
+    }
+}
+
 internal fun parse(jsonString: String): Any? {
     return JSON.parse(jsonString)
 }

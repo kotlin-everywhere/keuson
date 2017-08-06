@@ -8,6 +8,7 @@ import com.minek.kotline.everywehre.keuson.decode.Decoders.int
 import com.minek.kotline.everywehre.keuson.decode.Decoders.long
 import com.minek.kotline.everywehre.keuson.decode.Decoders.float
 import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
+import com.minek.kotline.everywehre.keuson.decode.Decoders.field
 import com.minek.kotline.everywehre.keuson.decode.decodeString
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -67,5 +68,16 @@ class TestDecode {
     fun testNullable() {
         assertEquals(ok(null), decodeString(nullable(int), "null"))
         assertEquals(err("Expecting a Int but instead got: true"), decodeString(int, "true"))
+    }
+
+    @Test
+    fun testField() {
+        assertEquals(ok(3), decodeString(field("x", int), "{ \"x\": 3 }"))
+        assertEquals(ok(3), decodeString(field("x", int), "{ \"x\": 3, \"y\": 4 }"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(field("x", int), "{ \"x\": true }"))
+        assertEquals(err("Expecting an object with a field named `x` but instead got: {\"y\":4}"), decodeString(field("x", int), "{ \"y\": 4 }"))
+        assertEquals(err("Expecting an object with a field named `y` but instead got: {\"x\":4}"), decodeString(field("y", int), "{ \"x\": 4 }"))
+
+        assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
     }
 }

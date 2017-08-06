@@ -20,6 +20,9 @@ object Decoders {
         }
     }
 
+    fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
+        return com.minek.kotline.everywehre.keuson.decode.field(name, decoder)
+    }
 }
 
 fun <T> decodeString(decoder: Decoder<T>, jsonString: String): Result<String, T> {

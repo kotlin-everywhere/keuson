@@ -4,6 +4,8 @@ import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
 import com.minek.kotline.everywehre.keuson.decode.Decoders
+import com.minek.kotline.everywehre.keuson.decode.Decoders.field
+import com.minek.kotline.everywehre.keuson.decode.Decoders.int
 import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import com.minek.kotline.everywehre.keuson.decode.decodeString
@@ -33,12 +35,12 @@ class TestDecode {
 
     @Test
     fun testInt() {
-        assertEquals(err("Expecting a Int but instead got: null"), decodeString(Decoders.int, "null"))
-        assertEquals(err("Expecting a Int but instead got: true"), decodeString(Decoders.int, "true"))
-        assertEquals(ok(42), decodeString(Decoders.int, "42"))
-        assertEquals(err("Expecting a Int but instead got: 3.14"), decodeString(Decoders.int, "3.14"))
-        assertEquals(err("Expecting a Int but instead got: \"hello\""), decodeString(Decoders.int, "\"hello\""))
-        assertEquals(err("Expecting a Int but instead got: {\"hello\":42}"), decodeString(Decoders.int, "{ \"hello\": 42 }"))
+        assertEquals(err("Expecting a Int but instead got: null"), decodeString(int, "null"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(int, "true"))
+        assertEquals(ok(42), decodeString(int, "42"))
+        assertEquals(err("Expecting a Int but instead got: 3.14"), decodeString(int, "3.14"))
+        assertEquals(err("Expecting a Int but instead got: \"hello\""), decodeString(int, "\"hello\""))
+        assertEquals(err("Expecting a Int but instead got: {\"hello\":42}"), decodeString(int, "{ \"hello\": 42 }"))
     }
 
     @Test
@@ -63,7 +65,18 @@ class TestDecode {
 
     @Test
     fun testNullable() {
-        assertEquals(Ok<String, Int?>(null), decodeString(nullable(Decoders.int), "null"))
-        assertEquals(err("Expecting a Int but instead got: true"), decodeString(Decoders.int, "true"))
+        assertEquals(Ok<String, Int?>(null), decodeString(nullable(int), "null"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(int, "true"))
+    }
+
+    @Test
+    fun testField() {
+        assertEquals(ok(3), decodeString(field("x", int), "{ \"x\": 3 }"))
+        assertEquals(ok(3), decodeString(field("x", int), "{ \"x\": 3, \"y\": 4 }"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(field("x", int), "{ \"x\": true }"))
+        assertEquals(err("Expecting an object with a field named `x` but instead got: {\"y\":4}"), decodeString(field("x", int), "{ \"y\": 4 }"))
+        assertEquals(err("Expecting an object with a field named `y` but instead got: {\"x\":4}"), decodeString(field("y", int), "{ \"x\": 4 }"))
+
+        assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
     }
 }
