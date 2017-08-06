@@ -27,4 +27,14 @@ class TestDecode {
         assertEquals(err("Expecting a Boolean but instead got: \"hello\""), decodeString(Decoders.boolean, "\"hello\""))
         assertEquals(err("Expecting a Boolean but instead got: {\"hello\":42}"), decodeString(Decoders.boolean, "{ \"hello\": 42 }"))
     }
+
+    @Test
+    fun testInt() {
+        assertEquals(err("Expecting a Int but instead got: null"), decodeString(Decoders.int, "null"))
+        assertEquals(err("Expecting a Int but instead got: true"), decodeString(Decoders.int, "true"))
+        assertEquals(ok(42), decodeString(Decoders.int, "42"))
+        assertEquals(err("Expecting a Int but instead got: 3.14"), decodeString(Decoders.int, "3.14"))
+        assertEquals(err("Expecting a Int but instead got: \"hello\""), decodeString(Decoders.int, "\"hello\""))
+        assertEquals(err("Expecting a Int but instead got: {\"hello\":42}"), decodeString(Decoders.int, "{ \"hello\": 42 }"))
+    }
 }

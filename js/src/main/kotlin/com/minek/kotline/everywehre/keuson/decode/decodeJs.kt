@@ -20,7 +20,24 @@ internal val boolean: Decoder<Boolean> = {
     if (bool != null) Ok(bool) else Err("Expecting a Boolean but instead got: ${it.toJson()}")
 }
 
+internal val int: Decoder<Int> = {
+    val i = it as? Int
+    if (i != null && isInt(i)) Ok(i) else Err("Expecting a Int but instead got: ${it.toJson()}")
+}
+
 internal fun parse(jsonString: String): Any? {
     return JSON.parse(jsonString)
 }
 
+private external fun isNaN(o: Any?): Boolean
+private external fun parseFloat(o: Any?): Float?
+
+private fun isInt(i: Number): Boolean {
+    if (isNaN(i)) {
+        return false
+    }
+
+    val f = parseFloat(i)
+    @Suppress("UnsafeCastFromDynamic")
+    return f != null && js("(f | 0) === f")
+}

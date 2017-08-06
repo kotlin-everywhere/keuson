@@ -24,6 +24,25 @@ internal val boolean: Decoder<Boolean> = {
     }
 }
 
+internal val int: Decoder<Int> = {
+    if (it.isJsonPrimitive && it.asJsonPrimitive.isNumber && "$it".isInt) {
+        Ok(it.asInt)
+    } else {
+        Err("Expecting a Int but instead got: $it")
+    }
+}
+
+private val String.isInt: Boolean
+    get() {
+        try {
+            Integer.parseInt(this)
+            return true
+        } catch (e: NumberFormatException) {
+            return false
+        }
+    }
+
+
 internal fun parse(jsonString: String): JsonElement {
     return JsonParser().parse(jsonString)
 }
