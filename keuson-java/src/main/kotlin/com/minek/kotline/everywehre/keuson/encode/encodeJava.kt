@@ -8,7 +8,7 @@ internal val string: Encoder<String> = ::JsonPrimitive
 internal val int: Encoder<Int> = ::JsonPrimitive
 internal val long: Encoder<Long> = ::JsonPrimitive
 internal val float: Encoder<Float> = ::JsonPrimitive
-internal val bool: Encoder<Boolean> = ::JsonPrimitive
+internal val boolean: Encoder<Boolean> = ::JsonPrimitive
 
 internal fun object_(vararg fields: Pair<String, Value>): Value {
     return fields.fold(JsonObject()) { obj, (name, value) -> obj.add(name, value); obj }

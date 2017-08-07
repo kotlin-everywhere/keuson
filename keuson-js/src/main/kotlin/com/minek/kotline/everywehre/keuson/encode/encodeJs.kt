@@ -6,7 +6,7 @@ internal val string: Encoder<String> = { Value(it) }
 internal val int: Encoder<Int> = { Value(it) }
 internal val long: Encoder<Long> = { Value(it.toDouble()) }
 internal val float: Encoder<Float> = { Value(it) }
-internal val bool: Encoder<Boolean> = { Value(it) }
+internal val boolean: Encoder<Boolean> = { Value(it) }
 
 internal fun object_(vararg fields: Pair<String, Value>): Value {
     val obj = js("({})")

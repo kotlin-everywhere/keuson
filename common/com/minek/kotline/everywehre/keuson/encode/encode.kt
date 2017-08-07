@@ -7,7 +7,7 @@ object Encoders {
     val int: Encoder<Int> = com.minek.kotline.everywehre.keuson.encode.int
     val long: Encoder<Long> = com.minek.kotline.everywehre.keuson.encode.long
     val float: Encoder<Float> = com.minek.kotline.everywehre.keuson.encode.float
-    val bool: Encoder<Boolean> = com.minek.kotline.everywehre.keuson.encode.bool
+    val boolean: Encoder<Boolean> = com.minek.kotline.everywehre.keuson.encode.boolean
 
     fun object_(vararg fields: Pair<String, Value>): Value {
         return com.minek.kotline.everywehre.keuson.encode.object_(*fields)

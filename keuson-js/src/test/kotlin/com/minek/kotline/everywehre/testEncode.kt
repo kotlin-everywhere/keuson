@@ -5,7 +5,7 @@ import com.minek.kotline.everywehre.keuson.encode.Encoders.string
 import com.minek.kotline.everywehre.keuson.encode.Encoders.int
 import com.minek.kotline.everywehre.keuson.encode.Encoders.long
 import com.minek.kotline.everywehre.keuson.encode.Encoders.float
-import com.minek.kotline.everywehre.keuson.encode.Encoders.bool
+import com.minek.kotline.everywehre.keuson.encode.Encoders.boolean
 import com.minek.kotline.everywehre.keuson.encode.Encoders.object_
 import com.minek.kotline.everywehre.keuson.encode.Encoders.array
 import com.minek.kotline.everywehre.keuson.encode.Encoders.nullable
@@ -35,7 +35,7 @@ class TestEncode {
 
     @Test
     fun testBool() {
-        assertEquals("false", encode(bool(false)))
+        assertEquals("false", encode(boolean(false)))
     }
 
     @Test
