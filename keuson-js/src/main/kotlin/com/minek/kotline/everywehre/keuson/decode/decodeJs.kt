@@ -51,8 +51,12 @@ internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
     }
 }
 
-internal fun parse(jsonString: String): Any? {
-    return JSON.parse(jsonString)
+internal fun parse(jsonString: String): Result<String, Any?> {
+    try {
+        return Ok(JSON.parse(jsonString))
+    } catch (e: dynamic) {
+        return Err("$e")
+    }
 }
 
 private external fun isNaN(o: Any?): Boolean

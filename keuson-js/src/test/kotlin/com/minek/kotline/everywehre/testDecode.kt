@@ -3,13 +3,11 @@ package com.minek.kotline.everywehre
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import com.minek.kotline.everywehre.keuson.decode.Decoders
+import com.minek.kotline.everywehre.keuson.decode.*
 import com.minek.kotline.everywehre.keuson.decode.Decoders.field
 import com.minek.kotline.everywehre.keuson.decode.Decoders.int
 import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotline.everywehre.keuson.decode.Decoders.string
-import com.minek.kotline.everywehre.keuson.decode.decodeString
-import com.minek.kotline.everywehre.keuson.decode.map
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -81,6 +79,21 @@ class TestDecode {
         assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
     }
 
+
+    @Test
+    fun testSuccess() {
+        assertEquals(ok(42), decodeString(Decoders.success(42), "42"))
+        assertEquals(ok(42), decodeString(Decoders.success(42), "[1, 2, 3]"))
+        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(Decoders.success(42), "{invalid}"))
+    }
+
+    @Test
+    fun testFail() {
+        assertEquals(err("42"), decodeString(Decoders.fail<Any>("42"), "42"))
+        assertEquals(err("42"), decodeString(Decoders.fail<Any>("42"), "[1, 2, 3]"))
+        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(Decoders.fail<Any>("42"), "{invalid}"))
+    }
+
     @Test
     fun map1() {
         assertEquals(ok("life"), decodeString(map(int) { if (it == 42) "life" else "no life" }, "42"))
@@ -101,5 +114,12 @@ class TestDecode {
 
         val decoder = map(field("x", int), field("y", int), field("z", int), ::Point)
         assertEquals(ok(Point(x = 3, y = 4, z = 5)), decodeString(decoder, """{ "x": 3, "y": 4, "z": 5 }"""))
+    }
+
+    @Test
+    fun testAndThen() {
+        val lifeDecoder: Decoder<String> = andThen(int) { if (it == 42) Decoders.success("life") else Decoders.fail("no life") }
+        assertEquals(ok("life"), decodeString(lifeDecoder, "42"))
+        assertEquals(err("no life"), decodeString(lifeDecoder, "24"))
     }
 }

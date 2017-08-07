@@ -1,7 +1,9 @@
 package com.minek.kotline.everywehre.keuson.decode
 
+import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
+import com.minek.kotlin.everywhere.kelibs.result.andThen
 
 object Decoders {
     val string = com.minek.kotline.everywehre.keuson.decode.string
@@ -23,8 +25,24 @@ object Decoders {
     fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
         return com.minek.kotline.everywehre.keuson.decode.field(name, decoder)
     }
+
+    fun <T> success(value: T): Decoder<T> {
+        return { Ok(value) }
+    }
+
+    fun <T> fail(message: String): Decoder<T> {
+        return { Err(message) }
+    }
+}
+
+fun <T, U> andThen(decoder: Decoder<T>, transformer: (T) -> Decoder<U>): Decoder<U> {
+    return { e ->
+        decoder.invoke(e).andThen { v ->
+            transformer(v)(e)
+        }
+    }
 }
 
 fun <T> decodeString(decoder: Decoder<T>, jsonString: String): Result<String, T> {
-    return decoder(parse(jsonString))
+    return parse(jsonString).andThen(decoder)
 }

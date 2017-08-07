@@ -94,9 +94,18 @@ private val String.isFloat: Boolean
     }
 
 
-internal fun parse(jsonString: String): JsonElement {
-    return JsonParser().parse(jsonString)
+internal fun parse(jsonString: String): Result<String, JsonElement> {
+    try {
+        return Ok(JsonParser().parse(jsonString))
+    } catch (e: Exception) {
+        return Err(e.causedMessage ?: e.toString())
+    }
 }
+
+private val Throwable.causedMessage: String?
+    get() {
+        return cause?.causedMessage ?: message
+    }
 
 internal fun isNull(it: JsonElement): Boolean {
     return it.isJsonNull
