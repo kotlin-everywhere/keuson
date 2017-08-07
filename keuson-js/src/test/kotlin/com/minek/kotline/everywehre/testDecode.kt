@@ -1,4 +1,4 @@
-package com.minek.kotline.everywehre.keuson
+package com.minek.kotline.everywehre
 
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
