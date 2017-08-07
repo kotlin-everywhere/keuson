@@ -23,4 +23,8 @@ object Converters {
     fun <T> nullable(converter: Converter<T>): Converter<T?> {
         return Encoders.nullable(converter.encoder) to Decoders.nullable(converter.decoder)
     }
+
+    fun <T> list(converter: Converter<T>): Converter<List<T>> {
+        return { li: List<T> -> Encoders.list(li.map(converter.encoder)) } to Decoders.list(converter.decoder)
+    }
 }

@@ -47,4 +47,9 @@ class TestConvert {
         assertEquals(Ok(null), Converters.nullable(Converters.int)(null))
         assertEquals(Ok(123), Converters.nullable(Converters.int)(123))
     }
+
+    @Test
+    fun testList() {
+        assertEquals(ok(listOf(1, 2, 3)), Converters.list(Converters.int)(listOf(1, 2, 3)))
+    }
 }

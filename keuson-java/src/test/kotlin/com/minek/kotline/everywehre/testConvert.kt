@@ -8,7 +8,7 @@ import com.minek.kotline.everywehre.keuson.convert.decoder
 import com.minek.kotline.everywehre.keuson.convert.encoder
 import com.minek.kotline.everywehre.keuson.decode.decodeString
 import com.minek.kotline.everywehre.keuson.encode.encode
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 private operator fun <T> Converter<T>.invoke(input: T): Result<String, T> {
@@ -18,32 +18,37 @@ private operator fun <T> Converter<T>.invoke(input: T): Result<String, T> {
 class TestConvert {
     @Test
     fun testString() {
-        Assert.assertEquals(ok("abc"), Converters.string("abc"))
+        assertEquals(ok("abc"), Converters.string("abc"))
     }
 
     @Test
     fun testInt() {
-        Assert.assertEquals(ok(123), Converters.int(123))
+        assertEquals(ok(123), Converters.int(123))
     }
 
     @Test
     fun testLong() {
-        Assert.assertEquals(ok(123L), Converters.long(123L))
+        assertEquals(ok(123L), Converters.long(123L))
     }
 
     @Test
     fun testFloat() {
-        Assert.assertEquals(ok(3.14f), Converters.float(3.14f))
+        assertEquals(ok(3.14f), Converters.float(3.14f))
     }
 
     @Test
     fun testBoolean() {
-        Assert.assertEquals(ok(true), Converters.boolean(true))
+        assertEquals(ok(true), Converters.boolean(true))
     }
 
     @Test
     fun testNullable() {
-        Assert.assertEquals(ok(null), Converters.nullable(Converters.int)(null))
-        Assert.assertEquals(ok(123), Converters.nullable(Converters.int)(123))
+        assertEquals(ok(null), Converters.nullable(Converters.int)(null))
+        assertEquals(ok(123), Converters.nullable(Converters.int)(123))
+    }
+
+    @Test
+    fun testList() {
+        assertEquals(ok(listOf(1, 2, 3)), Converters.list(Converters.int)(listOf(1, 2, 3)))
     }
 }
