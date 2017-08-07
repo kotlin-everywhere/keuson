@@ -40,4 +40,10 @@ class TestConvert {
     fun testBoolean() {
         Assert.assertEquals(ok(true), Converters.boolean(true))
     }
+
+    @Test
+    fun testNullable() {
+        Assert.assertEquals(ok(null), Converters.nullable(Converters.int)(null))
+        Assert.assertEquals(ok(123), Converters.nullable(Converters.int)(123))
+    }
 }

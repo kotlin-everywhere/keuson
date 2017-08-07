@@ -1,5 +1,6 @@
 package com.minek.kotline.everywehre
 
+import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
 import com.minek.kotline.everywehre.keuson.convert.Converter
@@ -39,5 +40,11 @@ class TestConvert {
     @Test
     fun testBoolean() {
         assertEquals(ok(true), Converters.boolean(true))
+    }
+
+    @Test
+    fun testNullable() {
+        assertEquals(Ok(null), Converters.nullable(Converters.int)(null))
+        assertEquals(Ok(123), Converters.nullable(Converters.int)(123))
     }
 }

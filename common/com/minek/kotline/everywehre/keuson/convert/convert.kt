@@ -19,4 +19,8 @@ object Converters {
     val int = Encoders.int to Decoders.int
     val long = Encoders.long to Decoders.long
     val float = Encoders.float to Decoders.float
+
+    fun <T> nullable(converter: Converter<T>): Converter<T?> {
+        return Encoders.nullable(converter.encoder) to Decoders.nullable(converter.decoder)
+    }
 }
