@@ -51,6 +51,28 @@ internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
     }
 }
 
+internal fun <T> list(decoder: Decoder<T>): Decoder<List<T>> {
+    return {
+        val isArray = js("Array.isArray(it)") as Boolean
+        if (isArray) {
+            val arr = it as Array<dynamic>
+            arr.map(decoder).fold(Ok(listOf())) { acc, i ->
+                when (acc) {
+                    is Ok -> {
+                        when (i) {
+                            is Ok -> acc.copy(acc.value + i.value)
+                            is Err -> Err(i.error)
+                        }
+                    }
+                    is Err -> acc
+                }
+            }
+        } else {
+            Err("Expecting an Array but instead got: ${it.toJson()}")
+        }
+    }
+}
+
 internal fun parse(jsonString: String): Result<String, Any?> {
     try {
         return Ok(JSON.parse(jsonString))

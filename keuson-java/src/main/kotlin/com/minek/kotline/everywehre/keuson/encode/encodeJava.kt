@@ -14,7 +14,7 @@ internal fun object_(vararg fields: Pair<String, Value>): Value {
     return fields.fold(JsonObject()) { obj, (name, value) -> obj.add(name, value); obj }
 }
 
-internal val array: Encoder<Collection<Value>> = {
+internal val list: Encoder<List<Value>> = {
     it.fold(JsonArray()) { arr, value -> arr.add(value); arr }
 }
 

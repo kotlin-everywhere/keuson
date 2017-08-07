@@ -8,6 +8,7 @@ import com.minek.kotline.everywehre.keuson.decode.Decoders.fail
 import com.minek.kotline.everywehre.keuson.decode.Decoders.field
 import com.minek.kotline.everywehre.keuson.decode.Decoders.float
 import com.minek.kotline.everywehre.keuson.decode.Decoders.int
+import com.minek.kotline.everywehre.keuson.decode.Decoders.list
 import com.minek.kotline.everywehre.keuson.decode.Decoders.long
 import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotline.everywehre.keuson.decode.Decoders.string
@@ -86,6 +87,12 @@ class TestDecode {
         assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
     }
 
+    @Test
+    fun testList() {
+        assertEquals(ok(listOf("john", "tom")), decodeString(list(string), """["john", "tom"]"""))
+        assertEquals(err("Expecting an Array but instead got: \"john, tom\""), decodeString(list(string), "\"john, tom\""))
+        assertEquals(err("Expecting a String but instead got: 42"), decodeString(list(string), """["john", 42]"""))
+    }
 
     @Test
     fun testSuccess() {

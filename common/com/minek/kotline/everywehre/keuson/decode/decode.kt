@@ -26,6 +26,10 @@ object Decoders {
         return com.minek.kotline.everywehre.keuson.decode.field(name, decoder)
     }
 
+    fun <T> list(decoder: Decoder<T>): Decoder<List<T>> {
+        return com.minek.kotline.everywehre.keuson.decode.list(decoder)
+    }
+
     fun <T> success(value: T): Decoder<T> {
         return { Ok(value) }
     }

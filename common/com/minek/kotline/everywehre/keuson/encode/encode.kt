@@ -13,7 +13,7 @@ object Encoders {
         return com.minek.kotline.everywehre.keuson.encode.object_(*fields)
     }
 
-    val array: Encoder<Collection<Value>> = com.minek.kotline.everywehre.keuson.encode.array
+    val list: Encoder<List<Value>> = com.minek.kotline.everywehre.keuson.encode.list
 
     fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
         return com.minek.kotline.everywehre.keuson.encode.nullable(encoder)

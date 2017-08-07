@@ -7,7 +7,7 @@ import com.minek.kotline.everywehre.keuson.encode.Encoders.long
 import com.minek.kotline.everywehre.keuson.encode.Encoders.float
 import com.minek.kotline.everywehre.keuson.encode.Encoders.boolean
 import com.minek.kotline.everywehre.keuson.encode.Encoders.object_
-import com.minek.kotline.everywehre.keuson.encode.Encoders.array
+import com.minek.kotline.everywehre.keuson.encode.Encoders.list
 import com.minek.kotline.everywehre.keuson.encode.Encoders.nullable
 import org.junit.Test
 import kotlin.test.assertEquals
@@ -48,7 +48,7 @@ class TestEncode {
 
     @Test
     fun testArray() {
-        assertEquals("[1,2,3]", encode(array(listOf(1, 2, 3).map(int))))
+        assertEquals("[1,2,3]", encode(list(listOf(1, 2, 3).map(int))))
     }
 
     @Test

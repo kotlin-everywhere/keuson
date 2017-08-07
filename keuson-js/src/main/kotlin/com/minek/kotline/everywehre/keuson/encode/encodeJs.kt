@@ -17,7 +17,7 @@ internal fun object_(vararg fields: Pair<String, Value>): Value {
 }
 
 @Suppress("UnsafeCastFromDynamic")
-internal val array: Encoder<Collection<Value>> = { Value(it.map { it.value }.toTypedArray()) }
+internal val list: Encoder<Collection<Value>> = { Value(it.map { it.value }.toTypedArray()) }
 
 internal fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
     return {
