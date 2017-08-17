@@ -1,19 +1,17 @@
 package com.minek.kotline.everywehre
 
+import com.minek.kotlin.everywehre.keuson.convert.Converter
+import com.minek.kotlin.everywehre.keuson.convert.Converters
+import com.minek.kotlin.everywehre.keuson.convert.decoder
+import com.minek.kotlin.everywehre.keuson.convert.encoder
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import com.minek.kotline.everywehre.keuson.convert.Converter
-import com.minek.kotline.everywehre.keuson.convert.Converters
-import com.minek.kotline.everywehre.keuson.convert.decoder
-import com.minek.kotline.everywehre.keuson.convert.encoder
-import com.minek.kotline.everywehre.keuson.decode.decodeString
-import com.minek.kotline.everywehre.keuson.encode.encode
 import org.junit.Test
 import kotlin.test.assertEquals
 
 private operator fun <T> Converter<T>.invoke(input: T): Result<String, T> {
-    return decodeString(decoder, encode(encoder.invoke(input)))
+    return com.minek.kotlin.everywehre.keuson.decode.decodeString(decoder, com.minek.kotlin.everywehre.keuson.encode.encode(encoder.invoke(input)))
 }
 
 class TestConvert {

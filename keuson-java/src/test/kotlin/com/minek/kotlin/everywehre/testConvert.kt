@@ -1,13 +1,13 @@
-package com.minek.kotline.everywehre
+package com.minek.kotlin.everywehre
 
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import com.minek.kotline.everywehre.keuson.convert.Converter
-import com.minek.kotline.everywehre.keuson.convert.Converters
-import com.minek.kotline.everywehre.keuson.convert.decoder
-import com.minek.kotline.everywehre.keuson.convert.encoder
-import com.minek.kotline.everywehre.keuson.decode.decodeString
-import com.minek.kotline.everywehre.keuson.encode.encode
+import com.minek.kotlin.everywehre.keuson.convert.Converter
+import com.minek.kotlin.everywehre.keuson.convert.Converters
+import com.minek.kotlin.everywehre.keuson.convert.decoder
+import com.minek.kotlin.everywehre.keuson.convert.encoder
+import com.minek.kotlin.everywehre.keuson.decode.decodeString
+import com.minek.kotlin.everywehre.keuson.encode.encode
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

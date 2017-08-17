@@ -1,9 +1,9 @@
-package com.minek.kotline.everywehre.keuson.convert
+package com.minek.kotlin.everywehre.keuson.convert
 
-import com.minek.kotline.everywehre.keuson.decode.Decoder
-import com.minek.kotline.everywehre.keuson.decode.Decoders
-import com.minek.kotline.everywehre.keuson.encode.Encoder
-import com.minek.kotline.everywehre.keuson.encode.Encoders
+import com.minek.kotlin.everywehre.keuson.decode.Decoder
+import com.minek.kotlin.everywehre.keuson.decode.Decoders
+import com.minek.kotlin.everywehre.keuson.encode.Encoder
+import com.minek.kotlin.everywehre.keuson.encode.Encoders
 
 typealias Converter<T> = Pair<Encoder<T>, Decoder<T>>
 

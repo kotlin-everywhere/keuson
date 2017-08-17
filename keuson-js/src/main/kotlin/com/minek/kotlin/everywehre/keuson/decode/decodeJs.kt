@@ -1,4 +1,4 @@
-package com.minek.kotline.everywehre.keuson.decode
+package com.minek.kotlin.everywehre.keuson.decode
 
 import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok

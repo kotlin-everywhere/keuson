@@ -1,4 +1,4 @@
-package com.minek.kotline.everywehre.keuson.decode
+package com.minek.kotlin.everywehre.keuson.decode
 
 import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
@@ -6,11 +6,11 @@ import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.andThen
 
 object Decoders {
-    val string = com.minek.kotline.everywehre.keuson.decode.string
-    val boolean = com.minek.kotline.everywehre.keuson.decode.boolean
-    val int = com.minek.kotline.everywehre.keuson.decode.int
-    val long = com.minek.kotline.everywehre.keuson.decode.long
-    val float = com.minek.kotline.everywehre.keuson.decode.float
+    val string = com.minek.kotlin.everywehre.keuson.decode.string
+    val boolean = com.minek.kotlin.everywehre.keuson.decode.boolean
+    val int = com.minek.kotlin.everywehre.keuson.decode.int
+    val long = com.minek.kotlin.everywehre.keuson.decode.long
+    val float = com.minek.kotlin.everywehre.keuson.decode.float
 
     fun <T> nullable(decoder: Decoder<T>): Decoder<T?> {
         return {
@@ -23,11 +23,11 @@ object Decoders {
     }
 
     fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
-        return com.minek.kotline.everywehre.keuson.decode.field(name, decoder)
+        return com.minek.kotlin.everywehre.keuson.decode.field(name, decoder)
     }
 
     fun <T> list(decoder: Decoder<T>): Decoder<List<T>> {
-        return com.minek.kotline.everywehre.keuson.decode.list(decoder)
+        return com.minek.kotlin.everywehre.keuson.decode.list(decoder)
     }
 
     fun <T> success(value: T): Decoder<T> {

@@ -1,14 +1,14 @@
 package com.minek.kotline.everywehre
 
+import com.minek.kotlin.everywehre.keuson.decode.*
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.field
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.int
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.list
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.nullable
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import com.minek.kotline.everywehre.keuson.decode.*
-import com.minek.kotline.everywehre.keuson.decode.Decoders.field
-import com.minek.kotline.everywehre.keuson.decode.Decoders.int
-import com.minek.kotline.everywehre.keuson.decode.Decoders.list
-import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
-import com.minek.kotline.everywehre.keuson.decode.Decoders.string
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -19,8 +19,8 @@ class TestDecode {
         assertEquals(err("Expecting a String but instead got: true"), decodeString(string, "true"))
         assertEquals(err("Expecting a String but instead got: 42"), decodeString(string, "42"))
         assertEquals(err("Expecting a String but instead got: 3.14"), decodeString(string, "3.14"))
-        assertEquals(ok("hello"), decodeString(Decoders.string, "\"hello\""))
-        assertEquals(err("Expecting a String but instead got: {\"hello\":42}"), decodeString(Decoders.string, "{ \"hello\": 42 }"))
+        assertEquals(ok("hello"), decodeString(string, "\"hello\""))
+        assertEquals(err("Expecting a String but instead got: {\"hello\":42}"), decodeString(string, "{ \"hello\": 42 }"))
     }
 
     @Test

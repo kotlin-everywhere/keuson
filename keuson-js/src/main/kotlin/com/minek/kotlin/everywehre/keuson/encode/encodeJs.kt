@@ -1,4 +1,4 @@
-package com.minek.kotline.everywehre.keuson.encode
+package com.minek.kotlin.everywehre.keuson.encode
 
 data class Value(internal val value: dynamic)
 

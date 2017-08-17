@@ -1,4 +1,4 @@
-package com.minek.kotline.everywehre.keuson.decode
+package com.minek.kotlin.everywehre.keuson.decode
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser

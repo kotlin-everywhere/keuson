@@ -1,21 +1,21 @@
-package com.minek.kotline.everywehre
+package com.minek.kotlin.everywehre
 
+import com.minek.kotlin.everywehre.keuson.decode.Decoder
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.boolean
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.fail
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.field
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.float
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.int
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.list
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.long
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.nullable
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.success
+import com.minek.kotlin.everywehre.keuson.decode.andThen
+import com.minek.kotlin.everywehre.keuson.decode.decodeString
+import com.minek.kotlin.everywehre.keuson.decode.map
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import com.minek.kotline.everywehre.keuson.decode.Decoder
-import com.minek.kotline.everywehre.keuson.decode.Decoders.boolean
-import com.minek.kotline.everywehre.keuson.decode.Decoders.fail
-import com.minek.kotline.everywehre.keuson.decode.Decoders.field
-import com.minek.kotline.everywehre.keuson.decode.Decoders.float
-import com.minek.kotline.everywehre.keuson.decode.Decoders.int
-import com.minek.kotline.everywehre.keuson.decode.Decoders.list
-import com.minek.kotline.everywehre.keuson.decode.Decoders.long
-import com.minek.kotline.everywehre.keuson.decode.Decoders.nullable
-import com.minek.kotline.everywehre.keuson.decode.Decoders.string
-import com.minek.kotline.everywehre.keuson.decode.Decoders.success
-import com.minek.kotline.everywehre.keuson.decode.andThen
-import com.minek.kotline.everywehre.keuson.decode.decodeString
-import com.minek.kotline.everywehre.keuson.decode.map
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
