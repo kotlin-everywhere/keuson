@@ -9,7 +9,7 @@ import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class TestDecode {

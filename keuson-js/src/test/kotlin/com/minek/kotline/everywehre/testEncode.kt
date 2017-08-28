@@ -1,15 +1,15 @@
 package com.minek.kotline.everywehre
 
-import com.minek.kotlin.everywehre.keuson.encode.encode
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.int
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.long
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.float
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.boolean
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.float
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.int
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.list
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.long
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.nullable
-import org.junit.Test
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
+import com.minek.kotlin.everywehre.keuson.encode.encode
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class TestEncode {

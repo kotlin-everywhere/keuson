@@ -7,7 +7,7 @@ import com.minek.kotlin.everywehre.keuson.convert.encoder
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 private operator fun <T> Converter<T>.invoke(input: T): Result<String, T> {
