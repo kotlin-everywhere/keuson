@@ -1,5 +1,9 @@
 package com.minek.kotlin.everywehre.keuson.encode
 
+import com.minek.kotlin.everywhere.kelibs.result.Err
+import com.minek.kotlin.everywhere.kelibs.result.Ok
+import com.minek.kotlin.everywhere.kelibs.result.Result
+
 typealias Encoder<T> = (T) -> Value
 
 object Encoders {
@@ -17,6 +21,15 @@ object Encoders {
 
     fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
         return com.minek.kotlin.everywehre.keuson.encode.nullable(encoder)
+    }
+
+    fun <E, T> result(errorEncoder: Encoder<E>, valueEncoder: Encoder<T>): Encoder<Result<E, T>> {
+        return {
+            when (it) {
+                is Ok -> object_("type" to string("Ok"), "value" to valueEncoder(it.value))
+                is Err -> object_("type" to string("Err"), "error" to errorEncoder(it.error))
+            }
+        }
     }
 }
 
