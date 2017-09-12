@@ -37,6 +37,16 @@ object Decoders {
     fun <T> fail(message: String): Decoder<T> {
         return { Err(message) }
     }
+
+    fun <E, T> result(error: Decoder<E>, ok: Decoder<T>): Decoder<Result<E, T>> {
+        return andThen(field("type", string)) {
+            when (it) {
+                "Ok" -> map(field("value", ok), { Ok<E, T>(it) })
+                "Err" -> map(field("error", error), { Err<E, T>(it) })
+                else -> fail("Expecting Ok or Err but instead got: $it")
+            }
+        }
+    }
 }
 
 fun <T, U> andThen(decoder: Decoder<T>, transformer: (T) -> Decoder<U>): Decoder<U> {

@@ -4,6 +4,7 @@ import com.minek.kotlin.everywehre.keuson.decode.Decoder
 import com.minek.kotlin.everywehre.keuson.decode.Decoders
 import com.minek.kotlin.everywehre.keuson.encode.Encoder
 import com.minek.kotlin.everywehre.keuson.encode.Encoders
+import com.minek.kotlin.everywhere.kelibs.result.Result
 
 typealias Converter<T> = Pair<Encoder<T>, Decoder<T>>
 
@@ -26,5 +27,9 @@ object Converters {
 
     fun <T> list(converter: Converter<T>): Converter<List<T>> {
         return { li: List<T> -> Encoders.list(li.map(converter.encoder)) } to Decoders.list(converter.decoder)
+    }
+
+    fun <E, T> result(errConverter: Converter<E>, okConverter: Converter<T>): Converter<Result<E, T>> {
+        return Encoders.result(errConverter.encoder, okConverter.encoder) to Decoders.result(errConverter.decoder, okConverter.decoder)
     }
 }
