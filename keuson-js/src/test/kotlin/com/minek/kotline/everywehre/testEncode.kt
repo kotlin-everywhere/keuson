@@ -9,7 +9,7 @@ import com.minek.kotlin.everywehre.keuson.encode.Encoders.nullable
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
 import com.minek.kotlin.everywehre.keuson.encode.encode
-import kotlin.test.Test
+import org.junit.Test
 import kotlin.test.assertEquals
 
 class TestEncode {
