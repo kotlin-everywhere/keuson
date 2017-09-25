@@ -42,6 +42,11 @@ class TestConvert {
     }
 
     @Test
+    fun testUnit() {
+        assertEquals(ok(Unit), Converters.unit(Unit))
+    }
+
+    @Test
     fun testNullable() {
         assertEquals(ok(null), Converters.nullable(Converters.int)(null))
         assertEquals(ok(123), Converters.nullable(Converters.int)(123))
