@@ -9,6 +9,7 @@ import com.minek.kotlin.everywehre.keuson.encode.Encoders.nullable
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
 import com.minek.kotlin.everywehre.keuson.encode.encode
+import com.minek.kotlin.everywehre.keuson.encode.unit
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -36,6 +37,11 @@ class TestEncode {
     @Test
     fun testBool() {
         assertEquals("false", encode(boolean(false)))
+    }
+
+    @Test
+    fun testUnit() {
+        assertEquals("null", encode(unit(Unit)))
     }
 
     @Test

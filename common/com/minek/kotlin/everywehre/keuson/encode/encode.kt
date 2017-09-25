@@ -12,6 +12,7 @@ object Encoders {
     val long: Encoder<Long> = com.minek.kotlin.everywehre.keuson.encode.long
     val float: Encoder<Float> = com.minek.kotlin.everywehre.keuson.encode.float
     val boolean: Encoder<Boolean> = com.minek.kotlin.everywehre.keuson.encode.boolean
+    val unit: Encoder<Unit> = com.minek.kotlin.everywehre.keuson.encode.unit
 
     fun object_(vararg fields: Pair<String, Value>): Value {
         return com.minek.kotlin.everywehre.keuson.encode.object_(*fields)
