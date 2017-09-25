@@ -35,6 +35,10 @@ internal val float: Decoder<Float> = {
     if (i != null && !isInt(i)) Ok(i) else Err("Expecting a Float but instead got: ${it.toJson()}")
 }
 
+internal val unit: Decoder<Unit> = {
+    if (it === null) Ok(Unit) else Err("Expecting a Unit but instead got: ${it.toJson()}")
+}
+
 internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
     return {
         val isObject = js("it === Object(it)") as Boolean

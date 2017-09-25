@@ -64,6 +64,16 @@ class TestDecode {
     }
 
     @Test
+    fun testUnit() {
+        assertEquals(ok(Unit), decodeString(Decoders.unit, "null"))
+        assertEquals(err("Expecting a Unit but instead got: true"), decodeString(Decoders.unit, "true"))
+        assertEquals(err("Expecting a Unit but instead got: 42"), decodeString(Decoders.unit, "42"))
+        assertEquals(err("Expecting a Unit but instead got: 3.14"), decodeString(Decoders.unit, "3.14"))
+        assertEquals(err("Expecting a Unit but instead got: \"hello\""), decodeString(Decoders.unit, "\"hello\""))
+        assertEquals(err("Expecting a Unit but instead got: {\"hello\":42}"), decodeString(Decoders.unit, "{ \"hello\": 42 }"))
+    }
+
+    @Test
     fun testNullable() {
         assertEquals(Ok<String, Int?>(null), decodeString(nullable(int), "null"))
         assertEquals(err("Expecting a Int but instead got: true"), decodeString(int, "true"))
