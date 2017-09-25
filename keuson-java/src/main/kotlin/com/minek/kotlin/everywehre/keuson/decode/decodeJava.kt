@@ -48,6 +48,14 @@ internal val float: Decoder<Float> = {
     }
 }
 
+internal val unit: Decoder<Unit> = {
+    if (it.isJsonNull) {
+        Ok(Unit)
+    } else {
+        Err("Expecting a Unit but instead got: $it")
+    }
+}
+
 internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
     return {
         if (it.isJsonObject) {

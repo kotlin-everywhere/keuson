@@ -11,6 +11,7 @@ import com.minek.kotlin.everywehre.keuson.decode.Decoders.long
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.success
+import com.minek.kotlin.everywehre.keuson.decode.Decoders.unit
 import com.minek.kotlin.everywehre.keuson.decode.andThen
 import com.minek.kotlin.everywehre.keuson.decode.decodeString
 import com.minek.kotlin.everywehre.keuson.decode.map
@@ -68,6 +69,16 @@ class TestDecode {
         assertEquals(ok(3.14f), decodeString(float, "3.14"))
         assertEquals(err("Expecting a Float but instead got: \"hello\""), decodeString(float, "\"hello\""))
         assertEquals(err("Expecting a Float but instead got: {\"hello\":42}"), decodeString(float, "{ \"hello\": 42 }"))
+    }
+
+    @Test
+    fun testUnit() {
+        assertEquals(ok(Unit), decodeString(unit, "null"))
+        assertEquals(err("Expecting a Unit but instead got: true"), decodeString(unit, "true"))
+        assertEquals(err("Expecting a Unit but instead got: 42"), decodeString(unit, "42"))
+        assertEquals(err("Expecting a Unit but instead got: 3.14"), decodeString(unit, "3.14"))
+        assertEquals(err("Expecting a Unit but instead got: \"hello\""), decodeString(unit, "\"hello\""))
+        assertEquals(err("Expecting a Unit but instead got: {\"hello\":42}"), decodeString(unit, "{ \"hello\": 42 }"))
     }
 
     @Test

@@ -11,6 +11,7 @@ object Decoders {
     val int = com.minek.kotlin.everywehre.keuson.decode.int
     val long = com.minek.kotlin.everywehre.keuson.decode.long
     val float = com.minek.kotlin.everywehre.keuson.decode.float
+    val unit = com.minek.kotlin.everywehre.keuson.decode.unit
 
     fun <T> nullable(decoder: Decoder<T>): Decoder<T?> {
         return {
