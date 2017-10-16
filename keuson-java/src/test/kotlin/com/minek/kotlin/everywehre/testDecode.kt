@@ -1,6 +1,6 @@
 package com.minek.kotlin.everywehre
 
-import com.minek.kotlin.everywehre.keuson.decode.*
+import com.minek.kotlin.everywehre.keuson.decode.Decoder
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.boolean
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.fail
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.field
@@ -12,10 +12,11 @@ import com.minek.kotlin.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.success
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.unit
+import com.minek.kotlin.everywehre.keuson.decode.andThen
+import com.minek.kotlin.everywehre.keuson.decode.decodeString
+import com.minek.kotlin.everywehre.keuson.decode.map
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import kotlinx.serialization.Optional
-import kotlinx.serialization.Serializable
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -98,14 +99,6 @@ class TestDecode {
     }
 
     @Test
-    fun testDeserialize() {
-        assertEquals(ok(Data(42)), decodeString(Decoders.deserialize<Data>(), """{"a":42}"""))
-
-        data class Box<out T>(val value: T)
-        assertEquals(ok(Box(Data(42))), decodeString(map(field("value", Decoders.deserialize<Data>()), ::Box), """{"value":{"a":42}}"""))
-    }
-
-    @Test
     fun testList() {
         assertEquals(ok(listOf("john", "tom")), decodeString(list(string), """["john", "tom"]"""))
         assertEquals(err("Expecting an Array but instead got: \"john, tom\""), decodeString(list(string), "\"john, tom\""))
@@ -154,6 +147,4 @@ class TestDecode {
         assertEquals(ok("life"), decodeString(lifeDecoder, "42"))
         assertEquals(err("no life"), decodeString(lifeDecoder, "24"))
     }
-
-    @Serializable data class Data(val a: Int, @Optional val b: String = "42")
 }

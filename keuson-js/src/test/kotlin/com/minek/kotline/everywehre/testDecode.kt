@@ -1,31 +1,17 @@
 package com.minek.kotline.everywehre
 
-import com.minek.kotlin.everywehre.keuson.decode.Decoder
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.boolean
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.deserialize
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.fail
+import com.minek.kotlin.everywehre.keuson.decode.*
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.field
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.float
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.int
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.list
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.long
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.nullable
 import com.minek.kotlin.everywehre.keuson.decode.Decoders.string
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.success
-import com.minek.kotlin.everywehre.keuson.decode.Decoders.unit
-import com.minek.kotlin.everywehre.keuson.decode.andThen
-import com.minek.kotlin.everywehre.keuson.decode.decodeString
-import com.minek.kotlin.everywehre.keuson.decode.map
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import kotlinx.serialization.Optional
-import kotlinx.serialization.Serializable
-import kotlin.test.Test
+import org.junit.Test
 import kotlin.test.assertEquals
 
-
-@Suppress("unused")
 class TestDecode {
     @Test
     fun testString() {
@@ -39,12 +25,12 @@ class TestDecode {
 
     @Test
     fun testBoolean() {
-        assertEquals(err("Expecting a Boolean but instead got: null"), decodeString(boolean, "null"))
-        assertEquals(ok(true), decodeString(boolean, "true"))
-        assertEquals(err("Expecting a Boolean but instead got: 42"), decodeString(boolean, "42"))
-        assertEquals(err("Expecting a Boolean but instead got: 3.14"), decodeString(boolean, "3.14"))
-        assertEquals(err("Expecting a Boolean but instead got: \"hello\""), decodeString(boolean, "\"hello\""))
-        assertEquals(err("Expecting a Boolean but instead got: {\"hello\":42}"), decodeString(boolean, "{ \"hello\": 42 }"))
+        assertEquals(err("Expecting a Boolean but instead got: null"), decodeString(Decoders.boolean, "null"))
+        assertEquals(ok(true), decodeString(Decoders.boolean, "true"))
+        assertEquals(err("Expecting a Boolean but instead got: 42"), decodeString(Decoders.boolean, "42"))
+        assertEquals(err("Expecting a Boolean but instead got: 3.14"), decodeString(Decoders.boolean, "3.14"))
+        assertEquals(err("Expecting a Boolean but instead got: \"hello\""), decodeString(Decoders.boolean, "\"hello\""))
+        assertEquals(err("Expecting a Boolean but instead got: {\"hello\":42}"), decodeString(Decoders.boolean, "{ \"hello\": 42 }"))
     }
 
     @Test
@@ -59,32 +45,32 @@ class TestDecode {
 
     @Test
     fun testLong() {
-        assertEquals(err("Expecting a Long but instead got: null"), decodeString(long, "null"))
-        assertEquals(err("Expecting a Long but instead got: true"), decodeString(long, "true"))
-        assertEquals(ok(42L), decodeString(long, "42"))
-        assertEquals(err("Expecting a Long but instead got: 3.14"), decodeString(long, "3.14"))
-        assertEquals(err("Expecting a Long but instead got: \"hello\""), decodeString(long, "\"hello\""))
-        assertEquals(err("Expecting a Long but instead got: {\"hello\":42}"), decodeString(long, "{ \"hello\": 42 }"))
+        assertEquals(err("Expecting a Long but instead got: null"), decodeString(Decoders.long, "null"))
+        assertEquals(err("Expecting a Long but instead got: true"), decodeString(Decoders.long, "true"))
+        assertEquals(ok(42L), decodeString(Decoders.long, "42"))
+        assertEquals(err("Expecting a Long but instead got: 3.14"), decodeString(Decoders.long, "3.14"))
+        assertEquals(err("Expecting a Long but instead got: \"hello\""), decodeString(Decoders.long, "\"hello\""))
+        assertEquals(err("Expecting a Long but instead got: {\"hello\":42}"), decodeString(Decoders.long, "{ \"hello\": 42 }"))
     }
 
     @Test
     fun testFloat() {
-        assertEquals(err("Expecting a Float but instead got: null"), decodeString(float, "null"))
-        assertEquals(err("Expecting a Float but instead got: true"), decodeString(float, "true"))
-        assertEquals(err("Expecting a Float but instead got: 42"), decodeString(float, "42"))
-        assertEquals(ok(3.14f), decodeString(float, "3.14"))
-        assertEquals(err("Expecting a Float but instead got: \"hello\""), decodeString(float, "\"hello\""))
-        assertEquals(err("Expecting a Float but instead got: {\"hello\":42}"), decodeString(float, "{ \"hello\": 42 }"))
+        assertEquals(err("Expecting a Float but instead got: null"), decodeString(Decoders.float, "null"))
+        assertEquals(err("Expecting a Float but instead got: true"), decodeString(Decoders.float, "true"))
+        assertEquals(err("Expecting a Float but instead got: 42"), decodeString(Decoders.float, "42"))
+        assertEquals(ok(3.14f), decodeString(Decoders.float, "3.14"))
+        assertEquals(err("Expecting a Float but instead got: \"hello\""), decodeString(Decoders.float, "\"hello\""))
+        assertEquals(err("Expecting a Float but instead got: {\"hello\":42}"), decodeString(Decoders.float, "{ \"hello\": 42 }"))
     }
 
     @Test
     fun testUnit() {
-        assertEquals(ok(Unit), decodeString(unit, "null"))
-        assertEquals(err("Expecting a Unit but instead got: true"), decodeString(unit, "true"))
-        assertEquals(err("Expecting a Unit but instead got: 42"), decodeString(unit, "42"))
-        assertEquals(err("Expecting a Unit but instead got: 3.14"), decodeString(unit, "3.14"))
-        assertEquals(err("Expecting a Unit but instead got: \"hello\""), decodeString(unit, "\"hello\""))
-        assertEquals(err("Expecting a Unit but instead got: {\"hello\":42}"), decodeString(unit, "{ \"hello\": 42 }"))
+        assertEquals(ok(Unit), decodeString(Decoders.unit, "null"))
+        assertEquals(err("Expecting a Unit but instead got: true"), decodeString(Decoders.unit, "true"))
+        assertEquals(err("Expecting a Unit but instead got: 42"), decodeString(Decoders.unit, "42"))
+        assertEquals(err("Expecting a Unit but instead got: 3.14"), decodeString(Decoders.unit, "3.14"))
+        assertEquals(err("Expecting a Unit but instead got: \"hello\""), decodeString(Decoders.unit, "\"hello\""))
+        assertEquals(err("Expecting a Unit but instead got: {\"hello\":42}"), decodeString(Decoders.unit, "{ \"hello\": 42 }"))
     }
 
     @Test
@@ -104,13 +90,6 @@ class TestDecode {
         assertEquals(ok("tom"), decodeString(field("name", string), "{ \"name\": \"tom\" }"))
     }
 
-    @Test
-    fun testDeserialize() {
-        assertEquals(ok(Data(42)), decodeString(deserialize(), """{"a":42}"""))
-
-        data class Box<out T>(val value: T)
-        assertEquals(ok(Box(Data(42))), decodeString(map(field("value", deserialize<Data>()), ::Box), """{"value":{"a":42}}"""))
-    }
 
     @Test
     fun testList() {
@@ -121,16 +100,16 @@ class TestDecode {
 
     @Test
     fun testSuccess() {
-        assertEquals(ok(42), decodeString(success(42), "42"))
-        assertEquals(ok(42), decodeString(success(42), "[1, 2, 3]"))
-        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(success(42), "{invalid}"))
+        assertEquals(ok(42), decodeString(Decoders.success(42), "42"))
+        assertEquals(ok(42), decodeString(Decoders.success(42), "[1, 2, 3]"))
+        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(Decoders.success(42), "{invalid}"))
     }
 
     @Test
     fun testFail() {
-        assertEquals(err("42"), decodeString(fail<Any>("42"), "42"))
-        assertEquals(err("42"), decodeString(fail<Any>("42"), "[1, 2, 3]"))
-        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(fail<Any>("42"), "{invalid}"))
+        assertEquals(err("42"), decodeString(Decoders.fail<Any>("42"), "42"))
+        assertEquals(err("42"), decodeString(Decoders.fail<Any>("42"), "[1, 2, 3]"))
+        assertEquals(err("SyntaxError: Unexpected token i in JSON at position 1"), decodeString(Decoders.fail<Any>("42"), "{invalid}"))
     }
 
     @Test
@@ -157,11 +136,8 @@ class TestDecode {
 
     @Test
     fun testAndThen() {
-        val lifeDecoder: Decoder<String> = andThen(int) { if (it == 42) success("life") else fail("no life") }
+        val lifeDecoder: Decoder<String> = andThen(int) { if (it == 42) Decoders.success("life") else Decoders.fail("no life") }
         assertEquals(ok("life"), decodeString(lifeDecoder, "42"))
         assertEquals(err("no life"), decodeString(lifeDecoder, "24"))
     }
-
-    @Serializable
-    data class Data(val a: Int, @Optional val b: String = "42")
 }

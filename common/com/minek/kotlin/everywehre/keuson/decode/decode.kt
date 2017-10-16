@@ -4,7 +4,6 @@ import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.andThen
-import kotlinx.serialization.serializer
 
 object Decoders {
     val string = com.minek.kotlin.everywehre.keuson.decode.string
@@ -26,10 +25,6 @@ object Decoders {
 
     fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
         return com.minek.kotlin.everywehre.keuson.decode.field(name, decoder)
-    }
-
-    inline fun <reified T: Any> deserialize(): Decoder<T> {
-        return com.minek.kotlin.everywehre.keuson.decode.deserialize(T::class.serializer())
     }
 
     fun <T> list(decoder: Decoder<T>): Decoder<List<T>> {

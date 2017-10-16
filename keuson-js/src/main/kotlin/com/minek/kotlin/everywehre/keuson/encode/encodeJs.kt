@@ -1,55 +1,33 @@
 package com.minek.kotlin.everywehre.keuson.encode
 
-import kotlinx.serialization.KSerialSaver
-import kotlinx.serialization.json.JSON
+data class Value(internal val value: dynamic)
 
-sealed class Value
-private class Native(internal val value: dynamic) : Value()
-private class SerializableValue<T : Any>(internal val value: T, internal val saver: KSerialSaver<T>) : Value() {
-    internal fun stringify(): String {
-        return JSON.stringify(saver, value)
-    }
-}
-
-fun Value.toJs(): dynamic {
-    return when (this) {
-        is Native -> value
-        is SerializableValue<*> -> {
-            kotlin.js.JSON.parse(stringify())
-        }
-    }
-}
-
-internal val string: Encoder<String> = { Native(it) }
-internal val int: Encoder<Int> = { Native(it) }
-internal val long: Encoder<Long> = { Native(it.toDouble()) }
-internal val float: Encoder<Float> = { Native(it) }
-internal val boolean: Encoder<Boolean> = { Native(it) }
-internal val unit: Encoder<Unit> = { Native(null) }
+internal val string: Encoder<String> = { Value(it) }
+internal val int: Encoder<Int> = { Value(it) }
+internal val long: Encoder<Long> = { Value(it.toDouble()) }
+internal val float: Encoder<Float> = { Value(it) }
+internal val boolean: Encoder<Boolean> = { Value(it) }
+internal val unit: Encoder<Unit> = { Value(null) }
 
 internal fun object_(vararg fields: Pair<String, Value>): Value {
     val obj = js("({})")
     for ((name, value) in fields) {
-        obj[name] = value.toJs()
+        obj[name] = value.value
     }
-    return Native(obj)
-}
-
-fun <T : Any> serialize(serializable: T, saver: KSerialSaver<T>): Value {
-    return SerializableValue(serializable, saver)
+    return Value(obj)
 }
 
 @Suppress("UnsafeCastFromDynamic")
-internal val list: Encoder<Collection<Value>> = { Native(it.map { it.toJs() }.toTypedArray()) }
+internal val list: Encoder<Collection<Value>> = { Value(it.map { it.value }.toTypedArray()) }
 
 internal fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
     return {
         if (it != null) encoder(it)
-        else Native(null)
+        else Value(null)
     }
 }
 
 internal fun _encode(value: Value): String {
     @Suppress("UnsafeCastFromDynamic")
-    return kotlin.js.JSON.stringify(value.toJs())
+    return JSON.stringify(value.value)
 }

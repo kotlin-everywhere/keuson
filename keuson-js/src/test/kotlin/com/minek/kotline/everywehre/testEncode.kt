@@ -7,17 +7,12 @@ import com.minek.kotlin.everywehre.keuson.encode.Encoders.list
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.long
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.nullable
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
-import com.minek.kotlin.everywehre.keuson.encode.Encoders.serialize
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.unit
 import com.minek.kotlin.everywehre.keuson.encode.encode
-import kotlinx.serialization.Optional
-import kotlinx.serialization.Serializable
-import kotlin.test.Test
+import org.junit.Test
 import kotlin.test.assertEquals
 
-
-@Suppress("unused")
 class TestEncode {
     @Test
     fun testString() {
@@ -67,15 +62,5 @@ class TestEncode {
         assertEquals("1", encode(nullable(int)(1)))
         assertEquals("null", encode(nullable(int)(null)))
     }
-
-    @Test
-    fun testSerialize() {
-
-        assertEquals("""{"a":42,"b":"42"}""", encode(serialize(Data(42))))
-
-        assertEquals("""{"value":{"a":42,"b":"42"}}""", encode(object_("value" to serialize(Data(42)))))
-    }
-
-    @Serializable data class Data(val a: Int, @Optional val b: String = "42")
 }
 

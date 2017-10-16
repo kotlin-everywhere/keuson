@@ -3,7 +3,6 @@ package com.minek.kotlin.everywehre.keuson.encode
 import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
-import kotlinx.serialization.serializer
 
 typealias Encoder<T> = (T) -> Value
 
@@ -17,10 +16,6 @@ object Encoders {
 
     fun object_(vararg fields: Pair<String, Value>): Value {
         return com.minek.kotlin.everywehre.keuson.encode.object_(*fields)
-    }
-
-    inline fun <reified T: Any> serialize(serializable: T): Value {
-        return com.minek.kotlin.everywehre.keuson.encode.serialize(serializable, T::class.serializer())
     }
 
     val list: Encoder<List<Value>> = com.minek.kotlin.everywehre.keuson.encode.list
