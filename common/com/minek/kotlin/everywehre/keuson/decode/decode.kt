@@ -48,6 +48,10 @@ object Decoders {
             }
         }
     }
+
+    fun <A, B> pair(first: Decoder<A>, second: Decoder<B>): Decoder<Pair<A, B>> {
+        return map(field("first", first), field("second", second), ::Pair)
+    }
 }
 
 fun <T, U> andThen(decoder: Decoder<T>, transformer: (T) -> Decoder<U>): Decoder<U> {

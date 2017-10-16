@@ -33,4 +33,8 @@ object Converters {
     fun <E, T> result(errConverter: Converter<E>, okConverter: Converter<T>): Converter<Result<E, T>> {
         return Encoders.result(errConverter.encoder, okConverter.encoder) to Decoders.result(errConverter.decoder, okConverter.decoder)
     }
+
+    fun <A, B> pair(first: Converter<A>, second: Converter<B>): Converter<Pair<A, B>> {
+        return Encoders.pair(first.first, second.first) to Decoders.pair(first.second, second.second)
+    }
 }
