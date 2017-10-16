@@ -5,6 +5,7 @@ import com.google.gson.JsonParser
 import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
+import kotlinx.serialization.KSerialLoader
 
 typealias Decoder<T> = (element: JsonElement) -> Result<String, T>
 
@@ -87,6 +88,16 @@ internal fun <T> list(decoder: Decoder<T>): Decoder<List<T>> {
             }
         } else {
             Err("Expecting an Array but instead got: $it")
+        }
+    }
+}
+
+fun <T> deserialize(loader: KSerialLoader<T>): Decoder<T> {
+    return {
+        if (!it.isJsonObject) {
+            Err("Expecting an serializable object but instead got: $it")
+        } else {
+            Ok(kotlinx.serialization.json.JSON.parse(loader, it.toString()))
         }
     }
 }

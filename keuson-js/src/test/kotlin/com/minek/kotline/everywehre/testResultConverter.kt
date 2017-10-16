@@ -9,9 +9,10 @@ import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.err
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
+@Suppress("unused")
 class TestResultConverter {
     @Test
     fun testEncoder() {

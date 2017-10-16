@@ -1,5 +1,6 @@
 package com.minek.kotlin.everywehre
 
+import com.minek.kotlin.everywehre.keuson.encode.Encoders
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.boolean
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.float
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.int
@@ -10,6 +11,8 @@ import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
 import com.minek.kotlin.everywehre.keuson.encode.encode
 import com.minek.kotlin.everywehre.keuson.encode.unit
+import kotlinx.serialization.Optional
+import kotlinx.serialization.Serializable
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -62,5 +65,15 @@ class TestEncode {
         assertEquals("1", encode(nullable(int)(1)))
         assertEquals("null", encode(nullable(int)(null)))
     }
+
+    @Test
+    fun testSerialize() {
+
+        assertEquals("""{"a":42,"b":"42"}""", encode(Encoders.serialize(Data(42))))
+
+        assertEquals("""{"value":{"a":42,"b":"42"}}""", encode(object_("value" to Encoders.serialize(Data(42)))))
+    }
+
+    @Serializable data class Data(val a: Int, @Optional val b: String = "42")
 }
 

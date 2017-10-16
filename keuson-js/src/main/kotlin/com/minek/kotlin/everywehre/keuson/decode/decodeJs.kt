@@ -3,6 +3,7 @@ package com.minek.kotlin.everywehre.keuson.decode
 import com.minek.kotlin.everywhere.kelibs.result.Err
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
+import kotlinx.serialization.KSerialLoader
 
 typealias Decoder<T> = (element: Any?) -> Result<String, T>
 
@@ -51,6 +52,17 @@ internal fun <T> field(name: String, decoder: Decoder<T>): Decoder<T> {
             }
         } else {
             Err("Expecting an object but instead got: ${it.toJson()}")
+        }
+    }
+}
+
+fun <T> deserialize(loader: KSerialLoader<T>): Decoder<T> {
+    return {
+        val isObject = js("it === Object(it)") as Boolean
+        if (!isObject) {
+            Err("Expecting an serializable object but instead got: ${it.toJson()}")
+        } else {
+            Ok(kotlinx.serialization.json.JSON.parse(loader, (JSON.stringify(it))))
         }
     }
 }

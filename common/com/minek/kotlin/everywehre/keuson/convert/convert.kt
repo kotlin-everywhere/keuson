@@ -8,10 +8,10 @@ import com.minek.kotlin.everywhere.kelibs.result.Result
 
 typealias Converter<T> = Pair<Encoder<T>, Decoder<T>>
 
-val <T> Converter<T>.encoder: Encoder<T>
+val <T> Pair<Encoder<T>, Decoder<T>>.encoder: Encoder<T>
     get() = first
 
-val <T> Converter<T>.decoder: Decoder<T>
+val <T> Pair<Encoder<T>, Decoder<T>>.decoder: Decoder<T>
     get() = second
 
 object Converters {
@@ -32,5 +32,9 @@ object Converters {
 
     fun <E, T> result(errConverter: Converter<E>, okConverter: Converter<T>): Converter<Result<E, T>> {
         return Encoders.result(errConverter.encoder, okConverter.encoder) to Decoders.result(errConverter.decoder, okConverter.decoder)
+    }
+
+    inline fun <reified T : Any> serializable(): Converter<T> {
+        return { it: T -> Encoders.serialize(it) } to Decoders.deserialize()
     }
 }
