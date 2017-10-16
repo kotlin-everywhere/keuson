@@ -1,5 +1,6 @@
 package com.minek.kotline.everywehre
 
+import com.minek.kotlin.everywehre.keuson.encode.Encoders
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.boolean
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.float
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.int
@@ -61,6 +62,12 @@ class TestEncode {
     fun testNullable() {
         assertEquals("1", encode(nullable(int)(1)))
         assertEquals("null", encode(nullable(int)(null)))
+    }
+
+
+    @Test
+    fun testPair() {
+        assertEquals("""{"first":1,"second":2}""", encode((Encoders.pair(int, int))(1 to 2)))
     }
 }
 

@@ -32,6 +32,12 @@ object Encoders {
             }
         }
     }
+
+    fun <A, B> pair(first: Encoder<A>, second: Encoder<B>): Encoder<Pair<A, B>> {
+        return {
+            object_("first" to first(it.first), "second" to second(it.second))
+        }
+    }
 }
 
 fun encode(value: Value): String {
