@@ -8,6 +8,7 @@ import com.minek.kotlin.everywehre.keuson.encode.Encoders.list
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.long
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.nullable
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.object_
+import com.minek.kotlin.everywehre.keuson.encode.Encoders.pair
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.string
 import com.minek.kotlin.everywehre.keuson.encode.Encoders.unit
 import com.minek.kotlin.everywehre.keuson.encode.encode
@@ -67,7 +68,7 @@ class TestEncode {
 
     @Test
     fun testPair() {
-        assertEquals("""{"first":1,"second":2}""", encode((Encoders.pair(int, int))(1 to 2)))
+        assertEquals("""{"first":1,"second":2}""", encode(pair(int, int)(1 to 2)))
     }
 }
 
