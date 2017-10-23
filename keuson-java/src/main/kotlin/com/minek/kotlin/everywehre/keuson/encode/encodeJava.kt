@@ -26,7 +26,7 @@ internal fun <T> nullable(encoder: Encoder<T>): Encoder<T?> {
     }
 }
 
-private val gson = GsonBuilder().create()!!
+private val gson = GsonBuilder().serializeNulls().create()!!
 
 internal fun _encode(value: Value): String {
     return gson.toJson(value)

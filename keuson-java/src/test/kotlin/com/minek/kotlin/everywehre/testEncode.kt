@@ -61,6 +61,10 @@ class TestEncode {
     fun testNullable() {
         assertEquals("1", encode(nullable(int)(1)))
         assertEquals("null", encode(nullable(int)(null)))
+        assertEquals(
+                """{"name":"john","age":null}""",
+                encode(object_("name" to string("john"), "age" to nullable(int)(null)))
+        )
     }
 }
 
