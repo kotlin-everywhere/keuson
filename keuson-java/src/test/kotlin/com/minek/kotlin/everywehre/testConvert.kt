@@ -1,13 +1,14 @@
 package com.minek.kotlin.everywehre
 
-import com.minek.kotlin.everywhere.kelibs.result.Result
-import com.minek.kotlin.everywhere.kelibs.result.ok
 import com.minek.kotlin.everywehre.keuson.convert.Converter
 import com.minek.kotlin.everywehre.keuson.convert.Converters
 import com.minek.kotlin.everywehre.keuson.convert.decoder
 import com.minek.kotlin.everywehre.keuson.convert.encoder
 import com.minek.kotlin.everywehre.keuson.decode.decodeString
 import com.minek.kotlin.everywehre.keuson.encode.encode
+import com.minek.kotlin.everywhere.kelibs.result.Result
+import com.minek.kotlin.everywhere.kelibs.result.ok
+import object_
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -55,5 +56,11 @@ class TestConvert {
     @Test
     fun testList() {
         assertEquals(ok(listOf(1, 2, 3)), Converters.list(Converters.int)(listOf(1, 2, 3)))
+    }
+
+    @Test
+    fun testObject() {
+        data class Person(val name: String, val age: Int)
+        assertEquals(ok(Person("john", 22)), Converters.object_(::Person, "name" to Person::name to Converters.string, "age" to Person::age to Converters.int)(Person("john", 22)))
     }
 }
