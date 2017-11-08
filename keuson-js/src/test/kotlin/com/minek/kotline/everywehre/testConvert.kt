@@ -7,6 +7,7 @@ import com.minek.kotlin.everywehre.keuson.convert.encoder
 import com.minek.kotlin.everywhere.kelibs.result.Ok
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
+import object2
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -54,5 +55,11 @@ class TestConvert {
     @Test
     fun testList() {
         assertEquals(ok(listOf(1, 2, 3)), Converters.list(Converters.int)(listOf(1, 2, 3)))
+    }
+
+    @Test
+    fun testObject() {
+        data class Person(val name: String, val age: Int)
+        assertEquals(ok(Person("john", 22)), Converters.object2(::Person, "name" to Person::name to Converters.string, "age" to Person::age to Converters.int)(Person("john", 22)))
     }
 }

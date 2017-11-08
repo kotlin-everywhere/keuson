@@ -19,7 +19,7 @@ for (i in 1..22) {
     val encoder = r.joinToString(", ") { "t$it.first.first to t$it.second.first(t$it.first.second(it))" }
     val decoder = r.joinToString(", ") { "Decoders.field(t$it.first.first, t$it.second.second)" }
     val body = """
-        fun <$types, U> Converters.object_(mapper: ($types) -> U, $pairs): Converter<U> {
+        fun <$types, U> Converters.object$i(mapper: ($types) -> U, $pairs): Converter<U> {
             val encoder: Encoder<U> = {
                 Encoders.object_($encoder)
             }

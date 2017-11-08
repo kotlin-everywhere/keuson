@@ -8,7 +8,7 @@ import com.minek.kotlin.everywehre.keuson.decode.decodeString
 import com.minek.kotlin.everywehre.keuson.encode.encode
 import com.minek.kotlin.everywhere.kelibs.result.Result
 import com.minek.kotlin.everywhere.kelibs.result.ok
-import object_
+import object2
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -61,6 +61,6 @@ class TestConvert {
     @Test
     fun testObject() {
         data class Person(val name: String, val age: Int)
-        assertEquals(ok(Person("john", 22)), Converters.object_(::Person, "name" to Person::name to Converters.string, "age" to Person::age to Converters.int)(Person("john", 22)))
+        assertEquals(ok(Person("john", 22)), Converters.object2(::Person, "name" to Person::name to Converters.string, "age" to Person::age to Converters.int)(Person("john", 22)))
     }
 }
