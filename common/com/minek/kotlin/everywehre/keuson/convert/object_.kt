@@ -1,5 +1,5 @@
-import com.minek.kotlin.everywehre.keuson.convert.Converter
-import com.minek.kotlin.everywehre.keuson.convert.Converters
+package com.minek.kotlin.everywehre.keuson.convert
+
 import com.minek.kotlin.everywehre.keuson.decode.Decoders
 import com.minek.kotlin.everywehre.keuson.decode.map
 import com.minek.kotlin.everywehre.keuson.encode.Encoder

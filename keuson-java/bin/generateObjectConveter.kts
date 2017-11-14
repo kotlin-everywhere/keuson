@@ -1,10 +1,11 @@
 import java.io.File
 
-val file = File("../../common/com/minek/kotlin/everywehre/keuson/encode/object_.kt")
+val file = File("../../common/com/minek/kotlin/everywehre/keuson/convert/object_.kt")
 val writer = file.writer()
 
-writer.write("""
-    import com.minek.kotlin.everywehre.keuson.convert.Converter
+writer.write("""package com.minek.kotlin.everywehre.keuson.convert
+
+import com.minek.kotlin.everywehre.keuson.convert.Converter
 import com.minek.kotlin.everywehre.keuson.convert.Converters
 import com.minek.kotlin.everywehre.keuson.decode.Decoders
 import com.minek.kotlin.everywehre.keuson.decode.map
